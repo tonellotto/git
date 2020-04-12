@@ -46,7 +46,7 @@ Cloning a repository does two things: it takes a repository from somewhere (usua
 $ git clone https://github.com/tonellotto/cloud-computing
 ```
 
-### Status
+## Status
 
 ![](images/git_status.png)
 
@@ -56,7 +56,7 @@ The `status` command is your window into the current state of your project in yo
 $ git status
 ```
 
-### Add
+## Add
 
 ![](images/git_add.png)
 
@@ -66,7 +66,7 @@ When you have made a change to a set of files and are ready to create a _commit_
 $ git add new_file.txt
 ```
 
-### Commit
+## Commit
 
 ![](images/git_commit.png)
 
@@ -82,7 +82,7 @@ Commit messages are a way of quickly telling your future self (and your collabor
 
 By convention, commit messages start with a single-line summary, then an empty line, then a more comprehensive description of the changes.
 
-### Push
+## Push
 
 ![](images/git_push.png)
 
@@ -93,7 +93,7 @@ If you're working with other people, then it's possible that they have made chan
 $ git push
 ```
 
-### Fetch
+## Fetch
 
 ![](images/git_fetch.png)
 
@@ -107,7 +107,7 @@ Let's say that you and your collaborator both edited the same line of the same f
 $ git fecth
 ```
 
-### Merge
+## Merge
 
 ![](images/git_merge.png)
 
@@ -127,3 +127,7 @@ $ git merge
 The line above the `=======` belongs to your branch, and the line below belongs to the branch you're merging with. Your job is to edit this file to replace all of that block with just the correct output
 
 Once you have fixed the file, you can `add`, `commit`, and `push` the changes. When your collaborator merges your resolved version, Git is smart enough to know that a merge resolution occurred and how to handle it without causing another conflict, despite the fact that your resolved version was different than either of the originals.
+
+## Pull
+
+![TODO](images/git_pull.png)
