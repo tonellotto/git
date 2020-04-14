@@ -31,7 +31,7 @@ $ git fetch [remote-name]
 If you clone a **upstream repository**, the command automatically adds that **upstream repository** under the name `origin`. So, `git fetch` fetches any new work that has been pushed to that **upstream repository**. It is important to note that the `fetch` command pulls the data to your **local repository** -– it does not automatically merge it with any of your work or modify what you are currently working on. You have to merge it manually into your work when you are ready.
 Running `git pull` generally fetches data from the **upstream repository** you originally cloned from and automatically tries to merge it into the code in your **working directory**.
 
-## Pushing from Upstream Repositories
+## Pushing to Upstream Repositories
 
 When you have your **working directory** at a point that you want to share, you have to push it to a **upstream repository**. The command for this is simple:
 
