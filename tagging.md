@@ -14,12 +14,12 @@ An annotated tag creates an additional tag object in the **local repository**, w
 
 We can create a **lightweight tag**, pointing to the current commit, with:
 ```bash
-$ git tag [tag label]
+$ git tag v1.1
 ```
 If we want to make it as an **annotated tag**, we need to supply `-a`, and a message with `-m`:
 
 ```bash
-$ git tag -a [tag label] -m "[message]"
+$ git tag -a v1.1 -m "tagging new release 1.1"
 ```
 
 ## Showing tags
@@ -42,7 +42,7 @@ If the tag is an annotated tag, you'll see the message and the tag object, follo
 
 To get rid of tags, you can delete them with `-d`:
 ```bash
-$ git tag -d [tag label]
+$ git tag -d v1.1
 ```
 Deleting tags is ok if you never made them publicly available, but you really should avoid deleting tags once you've pushed them to a publicly readable **upstream repository**. Similarly, you shouldn't change a tag once it has been released to the wild either.
 
@@ -50,7 +50,7 @@ Deleting tags is ok if you never made them publicly available, but you really sh
 
 Since a tag (either annotated or lightweight) is just a reference on your **local repository**, it is not sent up by default to the **upstream repository** repository during pushes. Instead, you can push the tag individually:
 ```bash
-$ git push [tag label]
+$ git push v1.1
 ```
 or you can run:
 ```bash
@@ -64,6 +64,6 @@ git fetch --tags
 ```
 to pull them all in, or:
 ```bash
-git fetch [tag label]
+git fetch v1.1
 ```
 to pull a single one.
