@@ -68,7 +68,7 @@ $ git add new_file.txt
 
 Remember that what you see in the filesystem is your **working directory**, so the way to see what is in the **staging area** is with the `status` command. This also means that if you add something to the **staging area** and then edit it again, you'll also need to add the file to the **staging area** again if you want to remember the new changes.
 
-### Remove
+## Remove
 
 ![TODO](images/git_rm.png)
 
@@ -95,10 +95,8 @@ When you're satisfied with the changes you haveve added to your **staging area**
 $ git commit -m "commit message"
 ```
 
-When you make a commit, Git stores a commit object in your **local repository**. This commit object points to the snapshot of the current content in your **staging area**.
-
+When you make a commit, Git stores a _commit object_ in your **local repository**. This commit object points to the snapshot of the current content in your **staging area**.
 Every commit has two features you should be aware of. The first is a *hash*. This is a unique identifier for all of the information about that commit, including the code changes, the timestamp, and the author. The second is a *commit message*. This is text that you can (and should) add to a commit to describe what the changes were.
-
 Commit messages are a way of quickly telling your future self (and your collaborators) what a commit was about. By convention, commit messages start with a single-line summary, then an empty line, then a more comprehensive description of the changes.
 
 If you want to look back and see what has been committed up so far, the tool to do this is the `log` command. By default, with no arguments, the `log` command lists the commits made in your **local repository** in reverse chronological order –- that is, the most recent commits show up first:
@@ -144,7 +142,7 @@ There are two general cases when merging two different changes:
 
 The first case is easy. Git will simply apply both sets of changes to the appropriate places and put the resulting files into the **staging area** for you. Then you can commit the changes and push them back to the **upstream repository**. Your collaborator does the same, and everyone sees everything.
 
-The second case is more complicated. Let's say the two changes set some variable to different values. Git can't know which is the correct value. One solution would be to simply use the more recent change, but this very easily leads to self-inconsistent programs. A more conservative solution, and the one Git uses, is to simply leave the decision to the user. When git detects a *conflict* that it cannot resolve, the `merge` command fails, and Git places a modified version of the offending file in your **working directory**. This is important: the file that Git puts into your directory is not actually either of the originals. It is a new file that has special markings around the locations that conflicted.
+The second case is more complicated. Let's say the two changes set some variable to different values. Git can't know which is the correct value. One solution would be to simply use the more recent change, but this very easily leads to self-inconsistent programs. A more conservative solution, and the one Git uses, is to simply leave the decision to the user. When Git detects a *conflict* that it cannot resolve, the `merge` command fails, and Git places a modified version of the offending file in your **working directory**. This is important: the file that Git puts into your directory is not actually either of the originals. It is a new file that has special markings around the locations that conflicted.
 
 ```bash
 $ git merge
