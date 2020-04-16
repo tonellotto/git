@@ -29,18 +29,18 @@ $ git status
 
 ![](images/git_init.png)
 
-If you want to start tracking an existing **working directory** in Git, you need to initialize the staging area and the local repository. The command `init` creates a new subdirectory named `.git` in the **working directory** that contains all of your necessary **local repository** files. At this point, nothing in your project is tracked yet; in particular, no **staging area** and **upstream repository** are created or available.
+If you want to start tracking an existing **working directory** in Git, you need to initialize the staging area and the local repository. The `init` command creates a new subdirectory named `.git` in the **working directory** that contains all of your necessary **local repository** files. At this point, nothing in your project is tracked yet; in particular, no **staging area** and **upstream repository** are created or available.
 
 ```bash
 $ cd some-folder
 $ git init
-````
+```
 
 ## Clone
 
 ![](images/git_clone.png)
 
-Cloning a repository does two things: it takes a repository from somewhere (usually an **upstream repository**) and makes a local copy (your new **local repository**), and it creates the most recent copy of all of the files in the repository in your new **working directory**. Using the `clone`command is generally how you will start working on a project for the first time.
+Cloning a repository does two things: it takes a repository from somewhere (usually an **upstream repository**) and makes a local copy (your new **local repository**), and it creates the most recent copy of all of the files in the repository in your new **working directory**. Using the `clone` command is generally how you will start working on a project for the first time.
 
 ```bash
 $ git clone https://github.com/tonellotto/cloud-computing
@@ -60,10 +60,29 @@ $ git status
 
 ![](images/git_add.png)
 
-When you have made a change to a set of files and are ready to create a _commit_, the first step is to add all of the changed files to the **staging area**. The `add` command does that. Remember that what you see in the filesystem is your **working directory**, so the way to see what is in the **staging area** is with the `status` command. This also means that if you add something to the **staging area** and then edit it again, you'll also need to add the file to the **staging area** again if you want to remember the new changes.
+When you have made a change to a set of files, the first step is to add all of the changed files to the **staging area**. The `add` command does that.
 
 ```bash
 $ git add new_file.txt
+```
+
+Remember that what you see in the filesystem is your **working directory**, so the way to see what is in the **staging area** is with the `status` command. This also means that if you add something to the **staging area** and then edit it again, you'll also need to add the file to the **staging area** again if you want to remember the new changes.
+
+### Remove
+
+![TODO](images/git_rm.png)
+
+If you simply remove the file from your **working directory**, it shows up under the "Changed but not updated" (that is, unstaged) area of your `git status` output.
+To remove a file from Git, you have to remove it from your **staging area** and then commit. The `rm` command does that, and also removes the file from your **working directory** so you do not see it as an untracked file the next time around.
+
+```bash
+$ git rm file_to_remove.txt
+```
+
+If you want to keep the file in your **working directory** but remove it from your **staging area** (in other words, you want to keep the file on your hard drive but not have Git track it anymore), use the `--cached` option.
+
+```bash
+$ git rm --cached file_to_remove.txt
 ```
 
 ## Commit
@@ -76,18 +95,24 @@ When you're satisfied with the changes you haveve added to your **staging area**
 $ git commit -m "commit message"
 ```
 
+When you make a commit, Git stores a commit object in your **local repository**. This commit object points to the snapshot of the current content in your **staging area**.
+
 Every commit has two features you should be aware of. The first is a *hash*. This is a unique identifier for all of the information about that commit, including the code changes, the timestamp, and the author. The second is a *commit message*. This is text that you can (and should) add to a commit to describe what the changes were.
 
-Commit messages are a way of quickly telling your future self (and your collaborators) what a commit was about. For even a moderately sized project, digging through tens or hundreds of commits to find the change you're looking for is a nightmare without friendly summaries.
+Commit messages are a way of quickly telling your future self (and your collaborators) what a commit was about. By convention, commit messages start with a single-line summary, then an empty line, then a more comprehensive description of the changes.
 
-By convention, commit messages start with a single-line summary, then an empty line, then a more comprehensive description of the changes.
+If you want to look back and see what has been committed up so far, the tool to do this is the `log` command. By default, with no arguments, the `log` command lists the commits made in your **local repository** in reverse chronological order –- that is, the most recent commits show up first:
+
+```bash
+$ git log
+```
 
 ## Push
 
 ![](images/git_push.png)
 
-The `push` command takes the changes you have made to your **local repository** and attempts to update a **remote repository** with them. If you're the only person working with both of these (which is how a solo GitHub project would work), then push should always succeed.
-If you're working with other people, then it's possible that they have made changes to the **remote repository **between the time you first cloned it and now. The `push` command will fail. That's where the next two commands come in.
+The `push` command takes the changes you have made to your **local repository** through one or more commits and attempts to update a **remote repository** with them. If you are the only person working with both of these (which is how a solo GitHub project would work), then the push should always succeed.
+If you're working with other people, then it's possible that they have made changes to the **remote repository** between the time you first cloned it and now. The `push` command will fail. That is where the next two commands come in.
 
 ```bash
 $ git push
@@ -99,35 +124,52 @@ $ git push
 
 Let's say a collaborator has pushed changes to your shared **upstream repository** while you were editing. Their **local repository** and the **upstream repository** now both contain their changes, but your **local repository** does not. To update your **local repository**, you run the `fetch` command.
 
-But what if you've committed changes in the meantime? Does your **local repository** contain your changes or theirs? The answer is that it contains a record of both, but they are kept separate. Remember that Git repositories are not copies of your project files. They store all the contents of your files, along with a bunch of metadata, but in its own internal format. This is one of the reasons.
+But what if you've committed changes in the meantime? Does your **local repository** contain your changes or theirs? The answer is that it contains a record of both, but they are kept separate. Git repositories are not copies of your project files. They store all the contents of your files, along with a bunch of metadata, but in its own internal format.
 
-Let's say that you and your collaborator both edited the same line of the same file at the same time in different ways. On your respective machines, you both add and commit your different changes, and your collaborator pushes theirs to the **upstream repository**. When you run the `fetch` command, Git adds a record of their changes to your **local repository** alongside your own. These are called *branches*, and they represent different, coexisting versions of your project. The `fetch` command adds your collaborator's branch to your **local repository**, but keeps yours as well.
+Let's say that you and your collaborator both edited the same line of the same file at the same time in different ways. On your respective machines, you both add and commit your different changes, and your collaborator pushes theirs to the **upstream repository**. When you run the `fetch` command, Git adds a record of their changes to your **local repository** alongside your own.
 
 ```bash
-$ git fecth
+$ git fetch
 ```
 
 ## Merge
 
 ![](images/git_merge.png)
 
-Having multiple branches is fine, but at some point, you'll want to combine the changes that you've made with those made by others. This is called *merging*.
+At some point, you will want to combine the changes that you've made with those made by others. This is called *merging*.
 
-There are two general cases when merging two branches: first, the two branches are different but the changes are in unrelated places; and second, the two branches are different and the changes are in the same locations in the same files.
+There are two general cases when merging two different changes:
+1. the changes are in unrelated places;
+2. the changes are in the same locations in the same files.
 
-The first scenario is easy. Git will simply apply both sets of changes to the appropriate places and put the resulting files into the **staging area** for you. Then you can commit the changes and push them back to the **upstream repository**. Your collaborator does the same, and everyone sees everything.
+The first case is easy. Git will simply apply both sets of changes to the appropriate places and put the resulting files into the **staging area** for you. Then you can commit the changes and push them back to the **upstream repository**. Your collaborator does the same, and everyone sees everything.
 
-The second scenario is more complicated. Let's say the two changes set some variable to different values. Git can't know which is the correct value. One solution would be to simply use the more recent change, but this very easily leads to self-inconsistent programs. A more conservative solution, and the one Git uses, is to simply leave the decision to the user. When git detects a *conflict* that it cannot resolve, the `merge` command fails, and Git places a modified version of the offending file in your **working directory**. This is important: the file that Git puts into your directory is not actually either of the originals. It is a new file that has special markings around the locations that conflicted.
+The second case is more complicated. Let's say the two changes set some variable to different values. Git can't know which is the correct value. One solution would be to simply use the more recent change, but this very easily leads to self-inconsistent programs. A more conservative solution, and the one Git uses, is to simply leave the decision to the user. When git detects a *conflict* that it cannot resolve, the `merge` command fails, and Git places a modified version of the offending file in your **working directory**. This is important: the file that Git puts into your directory is not actually either of the originals. It is a new file that has special markings around the locations that conflicted.
 
-Example:
 ```bash
 $ git merge
 ```
 
-The line above the `=======` belongs to your branch, and the line below belongs to the branch you're merging with. Your job is to edit this file to replace all of that block with just the correct output
+```diff
+<<<<<<< HEAD:index.html
+<div id="footer">contact : foo.bar@example.com</div>
+=======
+<div id="footer">
+please contact us at foo.bar@example.com
+</div>
+>>>>>>> master:index.html
+```
 
-Once you have fixed the file, you can `add`, `commit`, and `push` the changes. When your collaborator merges your resolved version, Git is smart enough to know that a merge resolution occurred and how to handle it without causing another conflict, despite the fact that your resolved version was different than either of the originals.
+The line above the `=======` belongs to your changes, and the line below belongs to the changes you're merging with. Your job is to edit this file to replace all of that block with just the correct output
+
+Once you have fixed the file, you can add, commit, and push the changes. When your collaborator merges your resolved version, Git is smart enough to know that a merge resolution occurred and how to handle it without causing another conflict, despite the fact that your resolved version was different than either of the originals.
 
 ## Pull
 
 ![TODO](images/git_pull.png)
+
+While the `fetch` command will fetch down all the changes on the **upstream repository** that you do not have yet, it will not modify your **working directory at all**. It will simply get the data for you and let you merge it yourself. However, there is a command called `pull` which is essentially a `fetch` command immediately followed by a `merge` command in most cases.
+
+```bash
+$ git pull
+```

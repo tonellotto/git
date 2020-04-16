@@ -69,3 +69,15 @@ If you want to remove a  **upstream repository** for some reason –- you moved 
 ```bash
 git remote rm [remote-name]
 ```
+
+## Remote Push to Multiple URLs
+
+To set up the push URLs do this:
+```bash
+$ git remote set-url --add --push origin [URL1]
+$ git remote set-url --add --push origin [URL2]
+```
+Now pushes will send to both of these destinations, rather than the fetch URL. Check it out by running:
+```bash
+$ git remote show origin
+```

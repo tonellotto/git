@@ -4,9 +4,10 @@ An introduction to Git, and a place to practice pushing code.
 
 ## Contents
 
-The tutorial is split into XXX pages:
+The tutorial is split into six pages:
 * An [overview](overview.md) of Git.
-* A description of Git [common](basics.md) and [uncommon](advanced.md) commands.
+* A description of [common](basics.md) Git commands.
 * Working with [upstream repositories](remote.md).
-* Working with [tags](tagging.md) and [branches](branches.md).
+* Working with [branches](branches.md).
+* Working with [tags](tagging.md).
 * A [summary](summary.md) of commonly used Git commands.
