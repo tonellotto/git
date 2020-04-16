@@ -51,8 +51,7 @@ A list of commonly used Git commands.
 | `git push origin --delete [branch name]` | Delete a remote branch |
 | `git pull` | Update local repository to the newest commit |
 | `git pull origin [branch name]` | Pull changes from remote repository |
-| `git remote add origin ssh://git@github.com/[username]/[repository-name].git` | Add a remote repository |
-| `git remote set-url origin ssh://git@github.com/[username]/[repository-name].git` | Set a repository's origin branch to SSH |
+| `git remote add github https://github.com/tonellotto/cloud-computing` | Add a remote repository |
 
 ## Inspection & Comparison
 
